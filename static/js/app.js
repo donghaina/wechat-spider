@@ -6,6 +6,9 @@ Vue.component('table-detail', {
     data: function () {
         return {
             tableData: [],
+            ActionColDef: {
+                align:'center'
+            },
             dialogFormVisible: false,
             form: {
                 id: '',
@@ -59,9 +62,11 @@ Vue.component('table-detail', {
                     self.formTitle = '编辑数据';
                     self.dialogFormVisible = true;
                 },
+                size:'mini',
                 name: '编辑'
             }, {
                 type: 'danger',
+                 size:'mini',
                 handler(row) {
                         self.$confirm('确认删除该数据?', '提示', {
                             confirmButtonText: '确定',
