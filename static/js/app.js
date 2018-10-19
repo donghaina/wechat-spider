@@ -54,7 +54,7 @@ Vue.component('table-detail', {
                     self.formType = 'edit';
                     self.form.id = row.id;
                     self.form.wx_id = row.wx_id;
-                    self.form.wx_title = wx_title;
+                    self.form.wx_title = row.wx_title;
                     self.form.scraping_time =row.scraping_time;
                     self.formTitle = '编辑数据';
                     self.dialogFormVisible = true;
@@ -104,7 +104,7 @@ Vue.component('table-detail', {
                     self.$message.success('添加成功！')
                 }).catch(self.showError);
             } else {
-                let url = Flask.url_for("update_feed", {feed_id: row.id});
+                let url = Flask.url_for("update_feed", {feed_id:  self.form.id});
                 axios.put(url, {
                     wx_id: self.form.wx_id,
                     wx_title: self.form.wx_title,

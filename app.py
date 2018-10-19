@@ -2,7 +2,6 @@
 from flask import Flask, render_template, jsonify, request, url_for
 from flask_jsglue import JSGlue
 from flask_sqlalchemy import SQLAlchemy
-# from marshmallow_sqlalchemy import ModelSchema
 from flask_marshmallow import Marshmallow
 import time
 
@@ -12,38 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@127.0.0.1:330
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 jsglue = JSGlue()
 jsglue.init_app(app)  # 让JS文件中可以使用url_for方法
-# result = [
-#     {
-#         'id': '1',
-#         'wx_id': 'oh-hard',
-#         'wx_title': '硬派健身',
-#         'scraping_time': '22:00:00'
-#     },
-#     {
-#         'id': '2',
-#         'wx_id': 'oh-hard',
-#         'wx_title': '硬派健身',
-#         'scraping_time': '22:00:00'
-#     },
-#     {
-#         'id': '3',
-#         'wx_id': 'oh-hard',
-#         'wx_title': '硬派健身',
-#         'scraping_time': '22:00:00'
-#     },
-#     {
-#         'id': '4',
-#         'wx_id': 'oh-hard',
-#         'wx_title': '硬派健身',
-#         'scraping_time': '22:00:00'
-#     },
-#     {
-#         'id': '5',
-#         'wx_id': 'oh-hard',
-#         'wx_title': '硬派健身',
-#         'scraping_time': '22:00:00'
-#     }
-# ]
 result = []
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -64,7 +31,7 @@ class Feed(db.Model):
 
 class FeedSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'wx_id', 'wx_title','scraping_time')
+        fields = ('id', 'wx_id', 'wx_title', 'scraping_time')
         model = Feed
 
 
@@ -101,22 +68,27 @@ def add_feed():
 
 @app.route('/api/feed/<feed_id>', methods=['PUT'])
 def update_feed(feed_id):
+    print(feed_id)
     data = request.json
     wx_id = data.get('wx_id')
     wx_title = data.get('wx_title')
     scraping_time = data.get('scraping_time')
-    for item in result:
-        if item['id'] == feed_id:
-            item['wx_id'] = wx_id,
-            item['wx_title'] = wx_title,
-            item['scraping_time'] = scraping_time,
-            break
+    # print(data)
+    update = Feed.query.filter_by(id=feed_id).first()
+    update.wx_id = wx_id
+    update.wx_title = wx_title
+    update.scraping_time = scraping_time
+
+    db.session.commit()
     return jsonify({'message': '编辑成功！'}), 200
 
 
 @app.route('/api/feed/<feed_id>', methods=['DELETE'])
 def delete_feed(feed_id):
-    result.remove(feed_id)
+    # result.remove(feed_id)
+    delete = Feed.query.filter_by(id=feed_id).first()
+    db.session.delete(delete)
+    db.session.commit()
     return jsonify({'message': '删除成功！'}), 200
 
 
