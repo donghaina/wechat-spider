@@ -1,6 +1,5 @@
 from . import db
 
-
 class Feed(db.Model):
     __tablename__ = 'feed'
     id = db.Column(db.Integer, primary_key=True)
