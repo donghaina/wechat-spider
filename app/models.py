@@ -1,4 +1,4 @@
-from . import app
+from . import db
 
 
 class Feed(db.Model):

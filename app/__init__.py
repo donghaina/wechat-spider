@@ -2,7 +2,9 @@ from flask import Flask
 from flask_jsglue import JSGlue
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-# from . import api, models, views
+from . import models
+from . import api
+from . import views
 
 app = Flask(__name__)
 

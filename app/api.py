@@ -1,5 +1,6 @@
 from flask import jsonify, request, url_for
-from . import app
+from .models import Feed
+from .models import FeedSchema
 import time
 
 result = []
