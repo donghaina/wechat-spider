@@ -13,12 +13,12 @@ def save_html(file_name, file_content):
         target_file.write(file_content)
 
 
-# target_feed_list = ['BTDDongge', 'html', 'SXM-Capital', 'wallstreetcn']
-#
-# for target_feed in target_feed_list:
-#     target_url = 'http://chuansong.me/account/' + target_feed
-#     target_html = get_html(target_url)
-#     save_html(target_url.split('/').pop(), target_html)
+target_feed_list = ['BTDDongge', 'html', 'SXM-Capital', 'wallstreetcn']
+
+for target_feed in target_feed_list:
+    target_url = 'http://chuansong.me/account/' + target_feed
+    target_html = get_html(target_url)
+    save_html(target_url.split('/').pop(), target_html)
 
 target_post_list = [{'title': '全球区块链早讯（10.17）', 'url': 'http://chuansong.me/n/2602994653214', 'published_at': '2018-10-17'}]
 
