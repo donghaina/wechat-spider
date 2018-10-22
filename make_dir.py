@@ -1,9 +1,31 @@
 import requests
 import os
 import time
+import pymysql
 
-target_feed_list = ['BTDDongge', 'oh-hard', 'SXM-Capital', 'wallstreetcn']
+# target_feed_list = ['BTDDongge', 'oh-hard', 'SXM-Capital', 'wallstreetcn']
+target_feed_list = []
 dir_name = time.strftime('%Y-%m-%d', time.localtime())
+my_db = pymysql.connect(
+    host='127.0.0.1',
+    user='root',
+    passwd='root',
+    database='wechat_spider'
+)
+
+my_cursor = my_db.cursor()
+sql = 'select wx_id from feed'
+
+try:
+    my_cursor.execute(sql)
+    results = my_cursor.fetchall()
+    for row in results:
+        target_feed_list.append(row[0])
+except:
+    print('Error:unable to fetch data')
+
+my_db.close()
+print(target_feed_list)
 
 
 def get_html(url):
