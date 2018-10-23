@@ -1,5 +1,4 @@
 let dataTables = DataTables.default;
-//ElHeader = window.ELEMENT.
 
 Vue.component('table-detail', {
     template: '#table-detail-template',
@@ -13,16 +12,16 @@ Vue.component('table-detail', {
             dialogFormVisible: false,
             form: {
                 id: '',
-                wx_id: '',
-                wx_title: '',
-                scraping_time: '',
+                title: '',
+                url: '',
+                published_at: '',
             },
             formType: 'create',
             formTitle: '添加公众号'
         }
     },
     mounted: function () {
-        this.getFeedList();
+        this.getPostList();
     },
     methods: {
         getActionsDef: function () {
@@ -76,7 +75,7 @@ Vue.component('table-detail', {
                         }).then(function () {
                             let url = Flask.url_for("delete_feed", {feed_id: row.id});
                             axios.delete(url).then(function (response) {
-                                self.getFeedList();
+                                self.getPostList();
                                 self.$message.success("删除成功！")
                             }).catch(self.showError)
                         });
@@ -84,11 +83,12 @@ Vue.component('table-detail', {
                 name: '删除'
             }]
         },
-        getFeedList: function () {
-            let url = Flask.url_for("get_feed_list");
+        getPostList: function () {
+            let wx_id = location.href.split('/').pop()
+            let url = Flask.url_for("get_post_list",{wx_id:wx_id});
             let self = this;
             axios.get(url).then(function (response) {
-                self.tableData = response.data.feed_list;
+                self.tableData = response.data.post_list;
             });
         },
         createOrUpdate: function () {
@@ -105,7 +105,7 @@ Vue.component('table-detail', {
                     wx_title: self.form.wx_title,
                     scraping_time: self.form.scraping_time,
                 }).then(function (response) {
-                    self.getFeedList();
+                    self.getPostList();
                     self.dialogFormVisible = false;
                     self.$message.success('添加成功！')
                 }).catch(self.showError);
@@ -116,7 +116,7 @@ Vue.component('table-detail', {
                     wx_title: self.form.wx_title,
                     scraping_time: self.form.scraping_time,
                 }).then(function (response) {
-                    self.getFeedList();
+                    self.getPostList();
                     self.dialogFormVisible = false;
                     self.$message.success('修改成功！')
                 }).catch(self.showError);

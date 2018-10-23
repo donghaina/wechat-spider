@@ -2,6 +2,8 @@ from flask import jsonify, request, url_for
 from app import app
 from .models import Feed
 from .models import FeedSchema
+from .models import Post
+from .models import PostSchema
 from app import db
 import time
 
@@ -15,6 +17,15 @@ def get_feed_list():
     # print(feed_list)
     return jsonify({
         'feed_list': feed_schema.dump(feed_list)
+    })
+
+
+@app.route("/api/<wx_id>/post")
+def get_post_list(wx_id):
+    post_list = Post.query.filter_by(wx_id=wx_id).all()
+    post_schema = PostSchema(many=True)
+    return jsonify({
+        'post_list': post_schema.dump(post_list)
     })
 
 

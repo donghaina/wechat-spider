@@ -14,19 +14,14 @@
 		             :pagination-def="getPaginationDef()"
 		             :row-action-def="getRowActionsDef()"
 		             action-col-width="80">
-			<el-table-column label="公众号ID" align="center">
+			<el-table-column label="标题" align="center">
 				<template scope="scope">
-					<span v-text="scope.row.wx_id"></span>
-				</template>
-			</el-table-column>
-			<el-table-column label="公众号标题" align="center">
-				<template scope="scope">
-					<span v-text="scope.row.wx_title"></span>
+					<a :href="scope.row.url" target="_blank" v-text="scope.row.title"></a>
 				</template>
 			</el-table-column>
 			<el-table-column label="爬取时间" align="center">
 				<template scope="scope">
-					<span v-text="scope.row.scraping_time"></span>
+					<span v-text="scope.row.published_at"></span>
 				</template>
 			</el-table-column>
 		</data-tables>

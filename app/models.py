@@ -19,3 +19,30 @@ class FeedSchema(ma.Schema):
     class Meta:
         fields = ('id', 'wx_id', 'wx_title', 'scraping_time')
         model = Feed
+
+
+class Post(db.Model):
+    __tablename__ = 'post'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    cover = db.Column(db.String(200))
+    url = db.Column(db.String(200))
+    author = db.Column(db.String(50))
+    wx_id = db.Column(db.String(50))
+    wx_title = db.Column(db.String(50))
+    wx_logo = db.Column(db.String(200))
+    abstract = db.Column(db.String(500))
+    text = db.Column(db.Text)
+    html = db.Column(db.Text)
+    published_at = db.Column(db.Integer)
+
+    # scraping_time = db.Column(db.String(100))
+
+    def __repr__(self):
+        return '<Post %r>' % self.title
+
+
+class PostSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'title', 'url', 'cover', 'author', 'wx_id', 'wx_title', 'wx_logo', 'abstract', 'text', 'html')
+        model = Post
