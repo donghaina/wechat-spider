@@ -2,6 +2,7 @@ from flask import jsonify, request, url_for
 from app import app
 from .models import Feed
 from .models import FeedSchema
+from app import db
 import time
 
 result = []
