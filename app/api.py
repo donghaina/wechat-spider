@@ -1,5 +1,7 @@
 from flask import jsonify, request, url_for
-
+from app import app
+from .models import Feed
+from .models import FeedSchema
 import time
 
 result = []
@@ -7,10 +9,9 @@ result = []
 
 @app.route("/api/feed")
 def get_feed_list():
-    # print(db.session.query.order_by(Feed.id).all())
     feed_list = Feed.query.order_by(Feed.scraping_time).all()
     feed_schema = FeedSchema(many=True)
-    print(feed_list)
+    # print(feed_list)
     return jsonify({
         'feed_list': feed_schema.dump(feed_list)
     })

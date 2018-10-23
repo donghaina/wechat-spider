@@ -1,4 +1,5 @@
 let dataTables = DataTables.default;
+//ElHeader = window.ELEMENT.
 
 Vue.component('table-detail', {
     template: '#table-detail-template',
@@ -129,5 +130,6 @@ Vue.component('table-detail', {
 });
 
 new Vue({
-    el: '#wechat_spider'
+    el: '#post_list',
+    components:{}
 });

@@ -1,4 +1,6 @@
-from . import db
+from app import db
+from app import ma
+
 
 class Feed(db.Model):
     __tablename__ = 'feed'

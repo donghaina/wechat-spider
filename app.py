@@ -30,15 +30,45 @@ class Feed(db.Model):
         return '<Feed %r>' % self.wx_id
 
 
+class Post(db.Model):
+    __tablename__ = 'post'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    cover = db.Column(db.String(200))
+    author = db.Column(db.String(50))
+    wx_id = db.Column(db.String(50))
+    wx_title = db.Column(db.String(50))
+    wx_logo = db.Column(db.String(200))
+    abstract = db.Column(db.String(500))
+    text = db.Column(db.Text)
+    html = db.Column(db.Text)
+
+    # scraping_time = db.Column(db.String(100))
+
+    def __repr__(self):
+        return '<Post %r>' % self.title
+
+
 class FeedSchema(ma.Schema):
     class Meta:
         fields = ('id', 'wx_id', 'wx_title', 'scraping_time')
         model = Feed
 
 
+class PostSchema(ma.Schema):
+    class Meta:
+        fields = ('id', 'title', 'cover', 'author', 'wx_id', 'wx_title', 'wx_logo', 'abstract', 'text', 'html')
+        model = Post
+
+
 @app.route("/")
-def index():
-    return render_template('add_feed.html')
+def show_feed_list():
+    return render_template('feed_list.html')
+
+
+@app.route("/feed/<int:feed_id>")
+def show_post_list(feed_id):
+    return render_template('post_list.html')
 
 
 @app.route("/api/feed")

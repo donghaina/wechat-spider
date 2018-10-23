@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!--导入element-ui样式表-->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/vender/element_index.css') }}">
+		{% if title %}
+		<title>{{ title }} - Microblog</title>
+		{% else %}
+		<title>开普勒微信公众号采集系统</title>
+		{% endif %}
+		<!--Vue.js-->
+		<script src="{{ url_for('static', filename='js/vender/vue.js') }}"></script>
+		<!--element-ui-->
+		<script src="{{ url_for('static', filename='js/vender/element-index.js') }}"></script>
+		<!--datatable.js-->
+		<script src="{{ url_for('static', filename='js/vender/data-tables.js') }}"></script>
+		<!--axios.js-->
+		<script src="{{ url_for('static', filename='js/vender/axios.min.js') }}"></script>
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+	</body>
+	<!--引入相应的包-->
+	<!--让js文件可以使用Flask.url_for-->
+	{{ JSGlue.include() }}
+
+
+
+	<!--templates-->
+	{% block template %}{% endblock %}
+
+	<!--项目js-->
+	{% block script %}{% endblock %}
+</html>

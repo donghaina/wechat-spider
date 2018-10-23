@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div id="post_list">
+		<table-detail></table-detail>
+	</div>
+{% endblock %}
+
+{% block template %}
+	<script type="text/x-template" id="table-detail-template">
+	<div>
+		<data-tables :data='tableData'
+		             :action-col="ActionColDef"
+		             :actions-def="getActionsDef()"
+		             :pagination-def="getPaginationDef()"
+		             :row-action-def="getRowActionsDef()"
+		             action-col-width="80">
+			<el-table-column label="公众号ID" align="center">
+				<template scope="scope">
+					<span v-text="scope.row.wx_id"></span>
+				</template>
+			</el-table-column>
+			<el-table-column label="公众号标题" align="center">
+				<template scope="scope">
+					<span v-text="scope.row.wx_title"></span>
+				</template>
+			</el-table-column>
+			<el-table-column label="爬取时间" align="center">
+				<template scope="scope">
+					<span v-text="scope.row.scraping_time"></span>
+				</template>
+			</el-table-column>
+		</data-tables>
+	</div>
+</script>
+{% endblock %}
+
+{% block script %}
+	<script src="{{ url_for('static', filename='js/post_list.js') }}"></script>
+{% endblock %}
