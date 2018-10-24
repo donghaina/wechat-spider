@@ -1,0 +1,19 @@
+insert into research(abstract,content,author_name,origin,is_public,created_at) select abstract,content,author_name,origin,is_public,created_at from research_tmp;
+
+
+insert into research(title,abstract,content,author_name,origin,is_public,created_at) select title, abstract,content,author_name,origin,is_public,created_at from research_tmp where id > 47;
+
+
+insert into research(abstract,content,author_name,origin,is_public,created_at) select abstract,content,author_name,origin,is_public,created_at from research_tmp where id > 47;
+
+scp /Users/taosang1992/Desktop/research_tmp.sql taosang@www.aikepler.com:/var/tmp/research_tmp.sql
+
+
+alter table research AUTO_INCREMENT=1;
+
+
+source /Users/taosang1992/Desktop/research_tmp.sql
+
+
+scp /Users/taosang1992/Desktop/favicon.ico taosang@www.aikepler.com:/var/www/kepler-web/public/favicon.ico
+scp /Users/taosang1992/Desktop/favicon.ico taosang@www.aikepler.com:/var/tmp/favicon.ico
