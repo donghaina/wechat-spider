@@ -4,8 +4,8 @@ import time
 
 start_time = time.time()
 # 引入TF-IDF关键词抽取接口
-# tfidf = analyse.extract_tags
-textrank = analyse.textrank
+tfidf = analyse.extract_tags
+# textrank = analyse.textrank
 # jieba.suggest_freq('半导体行业', True)
 # 原始文本
 # text = "线程是程序执行时的最小单位，它是进程的一个执行流，\
@@ -16,11 +16,13 @@ textrank = analyse.textrank
 with open('paper.txt', 'r', encoding='utf-8') as f:
     text = f.read()
     # 基于TF-IDF算法进行关键词抽取
-    keywords = textrank(text, withWeight=True, topK=30)
+    # keywords = textrank(text, withWeight=True, topK=30)
+    keywords = tfidf(text, withWeight=False, topK=30)
     print("keywords by tfidf:")
     # 输出抽取出的关键词
-    for keyword, weight in keywords:
-        print(keyword, weight)
+    # for keyword, weight in keywords:
+    #     print(keyword, weight)
+    print(keywords)
 
 end_time = time.time()
 
