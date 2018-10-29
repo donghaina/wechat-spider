@@ -74,7 +74,7 @@ def get_today_data(target_feed_list):
                                       'wx_id': item['wx_id']})
             print('post_list', len(post_list))
             save_to_db(post_list)
-            return post_list
+            # return post_list
 
 
 # 将数据保存到数据库
