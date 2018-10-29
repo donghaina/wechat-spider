@@ -18,4 +18,4 @@ ma = Marshmallow(app)
 from app import models
 from app import views
 from app import api
-from app import spider
+from app import get_data_spider

@@ -31,6 +31,7 @@ class Post(db.Model):
     wx_id = db.Column(db.String(50))
     wx_title = db.Column(db.String(50))
     wx_logo = db.Column(db.String(200))
+    keywords = db.Column(db.String(200))
     abstract = db.Column(db.String(500))
     text = db.Column(db.Text)
     html = db.Column(db.Text)
@@ -44,5 +45,5 @@ class Post(db.Model):
 
 class PostSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'title', 'url', 'cover', 'author', 'wx_id', 'wx_title', 'wx_logo', 'abstract', 'text', 'html')
+        fields = ('id', 'title', 'url', 'cover', 'author', 'wx_id', 'wx_title', 'wx_logo', 'keywords', 'abstract', 'text', 'html')
         model = Post

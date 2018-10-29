@@ -64,7 +64,7 @@ def get_feed_list():
     feed_schema = FeedSchema(many=True)
     target_feed_list = feed_schema.dump(feed_list)
     # mk_target_dir(target_feed_list)
-    # get_today_data(target_feed_list)
+    get_today_data(target_feed_list)
     print(target_feed_list)
 
 
