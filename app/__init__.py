@@ -19,3 +19,8 @@ from app import models
 from app import views
 from app import api
 from app import get_data_spider
+
+start_time = time.time()
+get_data_spider.get_feed_list()
+end_time = time.time()
+print('获取今日数据总耗时：', end_time - start_time)

@@ -94,7 +94,3 @@ def save_to_db(post_list):
     db.session.commit()
 
 
-start_time = time.time()
-get_feed_list()
-end_time = time.time()
-print('获取今日数据总耗时：', end_time - start_time)
