@@ -27,7 +27,6 @@ def get_post_content(html_page):
     soup = BeautifulSoup(html_page, 'lxml')
     post_content = str(soup.find('div', class_="rich_media_content"))
     post_content_text = re.sub(cleanr, '', post_content)
-    # post_content_text = post_content.text.replace('\n', '').replace(' ', '')
     return post_content, post_content_text
 
 
@@ -50,17 +49,17 @@ def get_feed_list():
 def get_today_data(target_feed_list):
     # today = time.strftime('%Y-%m-%d', time.localtime())
     today = '2018-10-26'
-    post_list = []
+
     for item in target_feed_list:
         html_page = get_html('http://chuansong.me/account/' + item['wx_id'])
         soup = BeautifulSoup(html_page, 'lxml')
         last_post_published_at = soup.select('.feed_body .timestamp')[0].string.strip()
         if last_post_published_at == today:
             posts = soup.select('.feed_item_question')
+            post_list = []
             for post in posts:
-                if last_post_published_at != today:
-                    continue
-                else:
+                post_published_at = post.select('.timestamp')[0].string.strip()
+                if post_published_at == last_post_published_at:
                     post_title = post.select('.question_link')[0].string.strip()
                     post_url = 'http://chuansong.me' + post.select('.question_link')[0]['href']
                     post_content = get_post_content(get_html(post_url))
@@ -73,10 +72,12 @@ def get_today_data(target_feed_list):
                                       'html': html_content,
                                       'keywords': keywords,
                                       'wx_id': item['wx_id']})
-    save_to_db(post_list)
-    return post_list
+            print('post_list', len(post_list))
+            save_to_db(post_list)
+            return post_list
 
 
+# 将数据保存到数据库
 def save_to_db(post_list):
     record_list = []
     for record in post_list:
@@ -88,6 +89,7 @@ def save_to_db(post_list):
                  keywords=record['keywords'],
                  wx_id=record['wx_id'],
                  published_at=time.time()))
+    print('record_list', len(record_list))
     db.session.add_all(record_list)
     db.session.commit()
 
