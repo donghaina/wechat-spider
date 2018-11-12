@@ -1,5 +1,14 @@
-/data_2_db/posts.txt
-/data_2_db/test.csv
 /__pycache__/
 /html/
+/app/__pycache__/
 /app/html/
+/data_2_db/lablel.txt
+/data_2_db/posts.txt
+/data_2_db/profiles.txt
+/data_2_db/test_sql.txt
+/data_2_db/document.json
+/data_2_db/posts.json
+/data_2_db/test.csv
+
+/data_2_db/.idea/
+/.idea/
