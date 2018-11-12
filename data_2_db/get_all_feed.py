@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from datetime import datetime
 import pymysql
 import json
